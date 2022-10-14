@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://static.matterport.com/showcase-sdk/2.0.1-0-g64e7e88/sdk.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/plugins/vue.min.js"></script>
+		<title>MatterPort</title>
+	</head>
+	<body>
+		<template id="Mattertag_Component">
+			<div class="mtg-inject-container" id="MTG_INJECT" ref="container">
+				<div :class="{'mtg-inject-content' : true}">
+					<slot></slot>
+				</div>
+			</div>
+		</template>
+
+		<div id="app">
+			<div class="config-panel"></div>
+			<div class="scene-view-container">
+				<iframe v-if="iframeLink" ref="$scene" id="showcase" title="test" :src="iframeLink" frameborder="0" allowfullscreen allow="xr-spatial-tracking"></iframe>
+			</div>
+
+			<mattertag-inject v-if="activeTag" :mp-sdk="mpSdk" :sid="activeTag.sid" :t="activeTag.lastUpdateTime" :eui="activeTag.eui" :is-loading="activeTag.isLoading">
+				<div class="hotspot-content">
+					<ul class="device-data-list" v-if="activeTag.deviceData">
+						<li class="device-attr" :update-time="'Updated At : '+ new Date(mitem.time).toLocaleString()" v-for="mitem of activeTag.deviceData" :key="mitem.measurement_id">
+							<span class="m-name">{{mitem.measurement_en_name}}</span>
+							<span class="m-value">{{mitem.measurement_value}}</span>
+							<span class="m-unit">{{mitem.measurement_unit}}</span>
+						</li>
+					</ul>
+				</div>
+			</mattertag-inject>
+		</div>
+	</body>
+	<script type="module" src="./matterport/index.js"></script>
+</html>

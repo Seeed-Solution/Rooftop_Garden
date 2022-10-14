@@ -1,0 +1,149 @@
+@import "../style/mixin.scss";
+body,
+html {
+	@include divInit();
+	background-color: transparent;
+}
+
+button {
+	border-radius: 3px;
+	border: 1px solid transparent;
+	padding: 0.4em 0.8em;
+	font-size: 1em;
+	font-weight: 500;
+	font-family: inherit;
+	background-color: $lightpurple;
+	color: #fff;
+	cursor: pointer;
+	transition: border-color 0.25s;
+	outline: none;
+	&.danger {
+		background-color: rgb(255, 0, 0);
+	}
+}
+
+a {
+	font-weight: 500;
+	color: $lightpurple;
+	text-decoration: inherit;
+}
+a:hover {
+	color: #535bf2;
+}
+
+.mtg-inject-content {
+	@include divInit(100%, auto, 0 0);
+	background-color: transparent;
+	position: relative;
+	.mtg-loading {
+		display: block;
+		position: absolute;
+		top: 0;
+		z-index: 10;
+		left: 0;
+		@include divInit(100%, 100%);
+		svg {
+			@include divCenter();
+			width: 40px;
+			height: auto;
+			object-fit: contain;
+			path {
+				fill: $lightGreen;
+			}
+		}
+	}
+	.device-data-list + .mtg-loading {
+		display: none;
+	}
+}
+.hotspot-content {
+	@include divInit(100%, auto, 10px 0, 0 0);
+	border-radius: 4px;
+	display: block;
+	font-family: Futura, "Helvetica Neue", sans-serif;
+	font-size: 13px;
+	font-weight: 400;
+	overflow-wrap: break-word;
+	width: 100%;
+	overflow: hidden;
+	// background: rgba(255, 255, 255,1);
+	// color: rgba(0, 0, 0, 0.8);
+	background: transparent;
+	color: #fff;
+	text-align: left;
+	.htp-title {
+		white-space: normal;
+		word-break: break-word;
+		text-align: left;
+		line-height: 1.6;
+		font-family: $mtsB;
+		font-size: 15px;
+		.mini-title {
+			font-size: 13px;
+			font-family: $mtsM;
+		}
+	}
+
+	ul {
+		@include divInit();
+		padding-left: 0.8em;
+		list-style-type: none;
+		li {
+			@include divInit(100%, auto, 5px 0, 0 0 0 0);
+		}
+	}
+	.device-data-list {
+		.m-name {
+			padding-right: 0.3em;
+			font-size: 13px;
+			&:after {
+				content: ":";
+			}
+		}
+		.m-value {
+			color: $lightGreen;
+			font-size: 14px;
+		}
+		.m-unit {
+			color: $lightGreen;
+		}
+
+		.m-time {
+			display: none;
+		}
+		.device-attr:before {
+			content: "";
+			@include inlineBlock();
+			border-radius: 50%;
+			@include divInit(5px, 5px);
+			background-color: $lightGreen;
+			margin-right: 8px;
+		}
+		.device-attr:last-child {
+			&:after {
+				display: block;
+				content: attr(update-time);
+				font-size: 12px;
+				@include divInit();
+				text-align: center;
+				font-style: italic;
+				margin-top: 1em;
+				font-family: sans-serif;
+				color: #aaa;
+			}
+		}
+	}
+
+	&.active {
+		top: calc(100% + 1em);
+		opacity: 1;
+		max-height: max-content;
+	}
+	.spot-img {
+		@include divInit();
+		img {
+			max-width: 100%;
+			object-fit: contain;
+		}
+	}
+}
